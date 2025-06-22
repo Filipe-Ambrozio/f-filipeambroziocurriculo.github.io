@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Currículo - Felipe Ambrozio</title>
+    <style>
+        /* Estilos base para a web */
+        body {
+            margin: 0;
+            padding: 20px; /* Adiciona um pouco de padding ao redor da página web */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            display: flex; /* Habilita Flexbox para a barra lateral e o conteúdo */
+            min-height: 100vh; /* Garante que o body ocupe a altura total da viewport */
+            background-color: #f9f9f9; /* Um fundo levemente cinza para o corpo */
+            flex-direction: column; /* Alinha os itens verticalmente (botão acima do container) */
+            align-items: center; /* Centraliza o container e o botão horizontalmente */
+
+            /* --- Desabilitar Seleção de Texto --- */
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Padrão (Chrome, Opera, etc.) */
+        }
+
+        /* Botão de Imprimir */
+        .print-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .print-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Container principal do currículo */
+        .resume-container {
+            display: flex;
+            width: 100%; /* Ocupa a largura total disponível */
+            max-width: 1200px; /* Limita a largura máxima para melhor leitura em telas grandes */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra mais visível para o container */
+            background: white; /* Fundo branco para o conteúdo do currículo */
+            border-radius: 8px; /* Cantos arredondados */
+            overflow: hidden; /* Garante que a sombra e os cantos arredondados funcionem bem */
+        }
+
+        /* Sidebar Esquerda */
+        .sidebar {
+            width: 300px; /* Largura fixa da barra lateral em pixels */
+            background-color: #e0e0e0; /* Cor cinza da barra lateral */
+            padding: 30px 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0; /* Impede que a sidebar encolha */
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid #666;
+        }
+
+        .photo-name {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .photo-name h1 {
+            margin: 10px 0 5px;
+            font-size: 1.8em;
+            color: #2c3e50;
+        }
+
+        .photo-name .title {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .contact {
+            font-size: 0.85em;
+            color: #555;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        .contact a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .section h2 {
+            border-bottom: 1px solid #bbb;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .sidebar .section h2 {
+            color: #2c3e50;
+            border-bottom-color: #bbb;
+        }
+
+        .lang-list, .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .lang-list li, .bullet-list li {
+            margin-bottom: 4px;
+            color: #555;
+        }
+
+        .bullet-list li strong {
+            color: #2c3e50;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+
+        .skill span {
+            display: block;
+            margin-bottom: 3px;
+            color: #555;
+        }
+
+        .bar {
+            background-color: #ddd;
+            border-radius: 3px;
+            height: 6px;
+            overflow: hidden;
+        }
+
+        .fill {
+            background-color: #007bff;
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        /* Área Principal Direita */
+        .main {
+            flex-grow: 1; /* Permite que o main ocupe o espaço restante */
+            padding: 30px 25px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main section {
+            margin-bottom: 25px;
+        }
+
+        .main section h2 {
+            color: #2c3e50;
+            border-bottom: 1px solid #bbb;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .main p {
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .edu-block, .exp-block {
+            margin-bottom: 20px;
+        }
+
+        .edu-block h3, .exp-block h3 {
+            margin: 0;
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .edu-block .sub, .exp-block .sub {
+            font-size: 0.85em;
+            color: #777;
+            margin-top: 5px;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .exp-block ul {
+            list-style: disc;
+            margin-left: 20px;
+            font-size: 0.9em;
+        }
+
+        .exp-block li {
+            margin-bottom: 4px;
+        }
+
+        /* Estilos para Impressão */
+        @media print {
+            body {
+                padding: 0; /* Remove o padding do corpo na impressão */
+                background-color: white; /* Fundo branco para impressão */
+                display: block; /* Reseta o display para o fluxo normal de impressão */
+
+                /* --- Reabilitar Seleção de Texto para Impressão (Opcional, mas recomendado) --- */
+                -webkit-user-select: auto;
+                -moz-user-select: auto;
+                -ms-user-select: auto;
+                user-select: auto;
+            }
+
+            .print-button {
+                display: none; /* Esconde o botão de impressão */
+            }
+
+            .resume-container {
+                width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto; /* Centraliza na página impressa */
+                box-shadow: none; /* Remove a sombra na impressão */
+                border-radius: 0; /* Remove cantos arredondados na impressão */
+                display: flex;
+                flex-direction: row; /* Garante que sidebar e main fiquem lado a lado */
+                overflow: visible; /* Garante que todo o conteúdo seja visível */
+            }
+
+            .sidebar {
+                width: 35%;
+                background-color: #e0e0e0; /* Garante a cor da sidebar na impressão */
+                padding: 30px 20px;
+                min-height: 297mm; /* Garante a altura da sidebar na impressão */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main {
+                width: 65%;
+                padding: 30px 25px;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        /* Media Queries para Responsividade (mantendo as alterações anteriores) */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px; /* Reduz o padding em telas menores */
+            }
+            .print-button {
+                margin-bottom: 10px;
+            }
+            .resume-container {
+                flex-direction: column; /* Pilha a sidebar e o main em telas menores */
+                margin: 10px auto;
+            }
+
+            .sidebar {
+                width: 100%; /* Sidebar ocupa toda a largura em telas menores */
+                padding: 20px;
+                min-height: auto; /* Remove min-height fixo */
+            }
+
+            .main {
+                width: 100%; /* Main ocupa toda a largura em telas menores */
+                padding: 20px;
+            }
+
+            .photo-name h1 {
+                font-size: 1.6em;
+            }
+
+            .photo-name .title {
+                font-size: 0.9em;
+            }
+
+            .contact {
+                font-size: 0.8em;
+            }
+
+            .section h2 {
+                font-size: 1.1em;
+            }
+
+            .main section h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">Imprimir Currículo (PDF)</button>
+    <div class="resume-container">
+        <div class="sidebar">
+            <div class="photo-name">
+                <img src="filipe.jpg" alt="Foto de Felipe Ambrozio" class="profile-pic"/>
+                <h1>Felipe Ambrozio</h1>
+                <p class="title">Data Science | +15 anos no Varejo</p>
+                <p class="contact">
+                    São Lourenço da Mata - PE, Brasil<br />
+                    (81) 99661-2252<br />
+                    felipe.ambrozio.s3@gmail.com<br />
+                    <a href="https://www.linkedin.com/in/felipeambrozio/" target="_blank">linkedin.com/in/felipeambrozio</a><br />
+                    <a href="https://github.com/felipeambrozio" target="_blank">github.com/felipeambrozio</a><br />
+                    Naturalidade: Brasileiro | Casado | 36 anos
+                </p>
+            </div>
+
+            <div class="section">
+                <h2>Idiomas</h2>
+                <ul class="lang-list">
+                    <li>Português (Nativo)</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Ferramentas e Linguagens</h2>
+                <div class="skills-grid">
+                    <div class="skill">
+                        <span>Python</span>
+                        <div class="bar"><div class="fill" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>SQL</span>
+                        <div class="bar"><div class="fill" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>R</span>
+                        <div class="bar"><div class="fill" style="width: 60%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>Excel</span>
+                        <div class="bar"><div class="fill" style="width: 95%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>Power BI</span>
+                        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>MySQL</span>
+                        <div class="bar"><div class="fill" style="width: 75%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>BigQuery (Cloud)</span>
+                        <div class="bar"><div class="fill" style="width: 70%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>Jupyter</span>
+                        <div class="bar"><div class="fill" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>VS Code</span>
+                        <div class="bar"><div class="fill" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>GitHub</span>
+                        <div class="bar"><div class="fill" style="width: 70%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>Notion</span>
+                        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>Keras/TensorFlow</span>
+                        <div class="bar"><div class="fill" style="width: 70%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>Scikit-learn</span>
+                        <div class="bar"><div class="fill" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>Streamlit</span>
+                        <div class="bar"><div class="fill" style="width: 60%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>VBA</span>
+                        <div class="bar"><div class="fill" style="width: 50%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <span>Lovable/N8n (Automação com IA)</span>
+                        <div class="bar"><div class="fill" style="width: 65%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <section>
+                <h2>Sobre Mim</h2>
+                <p>
+                    Olá! Sou **Felipe Ambrozio**, profissional com mais de **15 anos de experiência no varejo**, em processo de transição para a área de **Ciência de Dados**. Minha paixão está em resolver problemas reais através da **análise, automação e inteligência baseada em dados**.
+                </p>
+                <p>
+                    Unindo minha vivência prática no setor comercial à formação em Ciência de Dados, estou preparado para gerar impacto com **insights estratégicos, otimização de processos e soluções escaláveis**.
+                </p>
+                <p>
+                    Em busca de uma oportunidade para aplicar esse conjunto de conhecimentos técnicos e práticos em **projetos de Data Science**, contribuindo para decisões estratégicas e crescimento de negócio orientado por dados.
+                </p>
+            </section>
+
+            <section>
+                <h2>Competências Técnicas</h2>
+                <ul class="bullet-list">
+                    <li><strong>Análise de Dados:</strong> descritiva, diagnóstica, preditiva e prescritiva</li>
+                    <li><strong>Estatística Aplicada:</strong> testes de hipótese, inferência causal</li>
+                    <li><strong>Machine Learning (ML):</strong> regressão, classificação, clusterização, séries temporais, redes neurais (Keras, TensorFlow)</li>
+                    <li><strong>Modelagem & Estrutura de Dados:</strong> modelagem relacional e não relacional, normalização</li>
+                    <li><strong>Visualização & Storytelling:</strong> Power BI, Seaborn, Matplotlib, Plotly, Excel</li>
+                    <li><strong>Pesquisa Operacional & Otimização:</strong> programação linear e não-linear</li>
+                    <li><strong>NLP (Processamento de Linguagem Natural):</strong> pré-processamento, tokenização, análise de sentimento</li>
+                    <li><strong>Segurança e Governança de Dados:</strong> boas práticas de controle e integridade</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Formação Acadêmica</h2>
+                <div class="edu-block">
+                    <h3>Tecnólogo em Ciência de Dados</h3>
+                    <p class="sub">Unopar/Anhanguera – 2024 a 2026 (EAD, Camaragibe - PE)</p>
+                    <p>Disciplinas em destaque:</p>
+                    <ul class="lang-list">
+                        <li>Estrutura de Dados, Arquitetura de Dados, Modelagem, Segurança</li>
+                        <li>Probabilidade, Estatística e Pesquisa Operacional</li>
+                        <li>Machine Learning, NLP, Otimização, Cloud e Automação</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>Experiência Profissional</h2>
+                <div class="exp-block">
+                    <h3>[Seu Último Cargo no Varejo - Exemplo: Fiscal de Prevenção e Perdas]</h3>
+                    <p class="sub">[Nome da Empresa - Exemplo: Atacadão S.A.] | [Período de Atuação - Exemplo: Dez/2010 – Mar/2024]</p>
+                    <ul>
+                        <li>**Análise de Desempenho e Otimização:** Utilização de dados para identificar e implementar estratégias de **redução de perdas e otimização de estoque**, resultando em [mencionar resultados, se possível].</li>
+                        <li>**Gestão de Inventário:** Coordenação e execução de **inventários**, garantindo a acuracidade dos dados e o alinhamento com os sistemas.</li>
+                        <li>**Auditoria e Conformidade:** Realização de auditorias internas para assegurar a **integridade dos processos e a conformidade** com as políticas da empresa.</li>
+                        <li>**Desenvolvimento de Relatórios:** Criação e manutenção de **dashboards e relatórios em Excel** para monitoramento de KPIs e suporte à tomada de decisão gerencial.</li>
+                        <li>**Suporte Operacional e Treinamento:** Orientação e capacitação de equipes no uso de ferramentas e processos para **otimizar a eficiência operacional**.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-block">
+                    <h3>[Cargo Anterior - Exemplo: Assistente Administrativo]</h3>
+                    <p class="sub">[Nome da Empresa - Exemplo: ABC Comércio Ltda.] | [Período de Atuação - Exemplo: Jan/2008 – Nov/2010]</p>
+                    <ul>
+                        <li>[Descreva responsabilidades relevantes, focando em organização, manuseio de dados, etc.]</li>
+                        <li>[Exemplo: "Organização e manutenção de arquivos de clientes, garantindo a integridade e acessibilidade das informações."]</li>
+                        <li>[Exemplo: "Suporte na elaboração de relatórios gerenciais e apresentações."]</li>
+                    </ul>
+                </div>
+                </section>
+
+            <section>
+                <h2>Projetos de Data Science</h2>
+                <div class="exp-block">
+                    <h3>[Nome do Projeto 1 - Exemplo: Análise de Cestas de Compras]</h3>
+                    <p class="sub">GitHub: <a href="[Link do GitHub do Projeto]" target="_blank">[Nome do Repositório]</a></p>
+                    <ul>
+                        <li>**Objetivo:** [Descreva o problema que o projeto buscou resolver].</li>
+                        <li>**Tecnologias:** [Python, Pandas, Scikit-learn, Matplotlib].</li>
+                        <li>**Resultados:** [Exemplo: "Identificação de padrões de compra para otimização de layout de loja e promoções conjuntas."]</li>
+                    </ul>
+                </div>
+
+                <div class="exp-block">
+                    <h3>[Nome do Projeto 2 - Exemplo: Previsão de Demanda no Varejo]</h3>
+                    <p class="sub">GitHub: <a href="[Link do GitHub do Projeto]" target="_blank">[Nome do Repositório]</a></p>
+                    <ul>
+                        <li>**Objetivo:** [Descreva o problema que o projeto buscou resolver].</li>
+                        <li>**Tecnologias:** [Python, TensorFlow, Keras, Séries Temporais].</li>
+                        <li>**Resultados:** [Exemplo: "Desenvolvimento de modelo preditivo com X% de acurácia, visando otimizar níveis de estoque e reduzir perdas por ruptura."]</li>
+                    </ul>
+                </div>
+                </section>
+
+            <section>
+                <h2>Cursos e Certificações Complementares</h2>
+                <ul class="bullet-list">
+                    <li>[Nome do Curso/Certificação, Instituição, Ano]</li>
+                    <li>[Nome do Curso/Certificação, Instituição, Ano]</li>
+                    </ul>
+            </section>
+
+            <section>
+                <h2>Publicações ou Artigos (Opcional)</h2>
+                <p>
+                    [Exemplo: Artigo sobre "Otimização de Inventário com ML" em [Nome da Publicação], Ano.]
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // --- Desabilitar o Botão Direito do Mouse ---
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault(); // Impede o comportamento padrão do botão direito
+        });
+    </script>
+</body>
+</html>
